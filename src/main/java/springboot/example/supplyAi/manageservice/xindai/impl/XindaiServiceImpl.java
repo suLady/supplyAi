@@ -65,13 +65,14 @@ public class XindaiServiceImpl implements XindaiService {
     }
 
     @Override
-    public void updateContract(String starterCreditCode, String starterType, String receiverCompanyCreditCode, String receiverCompanyAddress, String accountNumber, String accountNode, String accountName,String confirmation) {
+    public Result<String>  updateContract(String starterCreditCode, String receiverCompanyCreditCode, String receiverCompanyAddress, String accountNumber, String accountNode, String accountName,String confirmation) {
         SignContractorDetails signContractorDetails = signContractDetailsService.selectContractInfo(starterCreditCode, receiverCompanyCreditCode);
-        if(signContractorDetails != null){
-            String signState = "1";
-            signContractDetailsService.updateContract(starterCreditCode,starterType,receiverCompanyCreditCode,receiverCompanyAddress,accountNumber,accountNode,accountName,confirmation,signState);
+        if(signContractorDetails == null){
+            throw new RuntimeException("不存在需要更新的记录");
         }else {
-            new RuntimeException("不存在需要更新的记录");
+            String signState = "1";
+            signContractDetailsService.updateContract(starterCreditCode,receiverCompanyCreditCode,receiverCompanyAddress,accountNumber,accountNode,accountName,confirmation,signState);
+            return Result.success(signState);
         }
     }
 }

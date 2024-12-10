@@ -25,7 +25,6 @@ public interface SignContractDetailsService {
                            String signState);
 
     void updateContract(String starterCreditCode,
-                        String starterType,
                         String receiverCompanyCreditCode,
                         String receiverCompanyAddress,
                         String accountNumber,

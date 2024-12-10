@@ -92,27 +92,38 @@ public class WangyinServiceImpl implements WangyinService {
     }
 
     @Override
-    public void submitConfirmInfoContract(String creditCode,String username, WangyinSignContractorDetailsDTO wangyinSignContractorDetailsDTO) {
+    public Result<Void> submitConfirmInfoContract(String creditCode,String username, WangyinSignContractorDetailsDTO wangyinSignContractorDetailsDTO) {
         Signature signature = generateSignature(username, wangyinSignContractorDetailsDTO.getStarterCompanyName(), wangyinSignContractorDetailsDTO.getPayment());
         if(signature.getUrlAddress() != null){
-            // 出票人
-            if(wangyinSignContractorDetailsDTO.getStarterType().equals("0")){
-                if(wangyinSignContractorDetailsDTO.getPayment().equals("0")){
-
-                } else if (wangyinSignContractorDetailsDTO.equals("1")) {
-
-                }
-                //收款人
-            } else if (wangyinSignContractorDetailsDTO.getStarterType().equals("1")) {
-                if(wangyinSignContractorDetailsDTO.getPayment().equals("0")){
-
-                } else if (wangyinSignContractorDetailsDTO.equals("1")) {
-
-                }
+            Result<String> stringResult = xindaiService.updateContract(creditCode, wangyinSignContractorDetailsDTO.getReceiverCompanyCreditCode(), wangyinSignContractorDetailsDTO.getReceiverCompanyAddress(), wangyinSignContractorDetailsDTO.getAccountNumber(), wangyinSignContractorDetailsDTO.getAccountNode(), wangyinSignContractorDetailsDTO.getAccountName(), wangyinSignContractorDetailsDTO.getConfirmation());
+            if (!stringResult.getCode().equals("1111")){
+                //throw new RuntimeException("..diaoyongxindaishibai);
             }
+            String signState = stringResult.getData();
+            wangyinSignContractorDetailsMapper.updateContractInfo(creditCode,wangyinSignContractorDetailsDTO.getReceiverCompanyCreditCode(),wangyinSignContractorDetailsDTO.getReceiverCompanyAddress(),wangyinSignContractorDetailsDTO.getReceiverPhone(),wangyinSignContractorDetailsDTO.getConfirmation(),wangyinSignContractorDetailsDTO.getAccountName(),wangyinSignContractorDetailsDTO.getAccountNode(),wangyinSignContractorDetailsDTO.getAccountNumber(),signState);
         }else{
-            Result.error("签章失败");
+           return Result.error("签章失败");
         }
+
+        //无论哪种状态都要更新签约状态
+        //出票人
+        if(wangyinSignContractorDetailsDTO.getStarterType().equals("0")){
+            //买方付息
+            if(wangyinSignContractorDetailsDTO.getPayment().equals("0")){
+                //卖方付息
+            } else if (wangyinSignContractorDetailsDTO.getPayment().equals("1")) {
+
+            }
+            //收款人
+        }else if(wangyinSignContractorDetailsDTO.getReceiverType().equals("1")){
+            //买方付息
+            if(wangyinSignContractorDetailsDTO.getPayment().equals("0")){
+            //卖方付息
+            } else if (wangyinSignContractorDetailsDTO.getPayment().equals("1")) {
+
+            }
+        }
+        return null;
     }
 
     @Override

@@ -3,6 +3,7 @@ package springboot.example.supplyAi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.example.supplyAi.domain.PageResult;
+import springboot.example.supplyAi.domain.Result;
 import springboot.example.supplyAi.domain.SignContractorDetails;
 import springboot.example.supplyAi.mapper.SignContractDetailsMapper;
 import springboot.example.supplyAi.service.SignContractDetailsService;
@@ -26,8 +27,8 @@ public class SignContractDetailsServiceImpl implements SignContractDetailsServic
     }
 
     @Override
-    public void updateContract(String starterCreditCode, String starterType, String receiverCompanyCreditCode, String receiverCompanyAddress,  String accountNumber, String accountNode,String accountName,String confirmation, String signState) {
-        signContractDetailsMapper.updateConfirmSignContract(starterCreditCode,starterType,receiverCompanyCreditCode,receiverCompanyAddress,accountNumber,accountNode,accountName,confirmation,signState);
+    public void updateContract(String starterCreditCode, String receiverCompanyCreditCode, String receiverCompanyAddress, String accountNumber, String accountNode, String accountName, String confirmation, String signState) {
+        signContractDetailsMapper.updateConfirmSignContract(starterCreditCode,receiverCompanyCreditCode,receiverCompanyAddress,accountNumber,accountNode,accountName,confirmation,signState);
     }
 
 

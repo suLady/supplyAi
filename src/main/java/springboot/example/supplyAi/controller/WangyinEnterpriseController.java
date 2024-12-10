@@ -42,7 +42,7 @@ public class WangyinEnterpriseController {
     }
 
     @PostMapping("/signature")
-    public Result<Signature> generateSignature(SignatureDTO signatureDTO){
+    public Result<Void> generateSignature(SignatureDTO signatureDTO){
         User user = ThreadLocalUtil.get();
         Signature signature = wangyinService.generateSignature(user.getUsername(),signatureDTO.getStarterCompanyName(),signatureDTO.getPayment());
         return Result.success();
@@ -51,7 +51,7 @@ public class WangyinEnterpriseController {
     @PostMapping("submitConfirmInfo")
     public Result<Void> submitConfirmInfoContract(WangyinSignContractorDetailsDTO wangyinSignContractorDetailsDTO){
         User user = ThreadLocalUtil.get();
-        wangyinService.submitConfirmInfoContract(user.getCreditCode(),user.getUsername(),wangyinSignContractorDetailsDTO);
-        return Result.success();
+        Result<Void> voidResult = wangyinService.submitConfirmInfoContract(user.getCreditCode(), user.getUsername(), wangyinSignContractorDetailsDTO);
+        return voidResult;
     }
 }

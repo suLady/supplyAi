@@ -27,8 +27,7 @@ public interface XindaiService {
                                      String payment,
                                      String confirmation);
 
-    void updateContract(String starterCreditCode,
-                        String starterType,
+    Result<String> updateContract(String starterCreditCode,
                         String receiverCompanyCreditCode,
                         String receiverCompanyAddress,
                         String accountNumber,

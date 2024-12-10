@@ -36,7 +36,6 @@
     </insert>
     <update id="updateConfirmSignContract">
         update sign_contractor_details set
-                                           starter_type = #{starterType},
                                            receiver_company_address=#{receiverCompanyAddress},
                                            account_number=#{accountNumber},
                                            account_node=#{accountNode},

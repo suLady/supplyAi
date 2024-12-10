@@ -33,7 +33,6 @@ public interface SignContractDetailsMapper {
 
 
     void updateConfirmSignContract(@Param("starterCreditCode") String starterCreditCode,
-                                   @Param("starterType") String starterType,
                                    @Param("receiverCompanyCreditCode") String receiverCompanyCreditCode,
                                    @Param("receiverCompanyAddress") String receiverCompanyAddress,
                                    @Param("accountNumber") String accountNumber,

@@ -20,7 +20,7 @@ public interface WangyinService {
 
 
 
-    void submitConfirmInfoContract(String creditCode,String username,  WangyinSignContractorDetailsDTO wangyinSignContractorDetailsDTO);
+    Result<Void> submitConfirmInfoContract(String creditCode,String username,  WangyinSignContractorDetailsDTO wangyinSignContractorDetailsDTO);
 
 
     Signature generateSignature(String username, String starterCompanyName, String payment);

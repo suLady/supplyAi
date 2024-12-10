@@ -33,4 +33,14 @@ public interface WangyinSignContractorDetailsMapper {
                       @Param("starterCompanyName") String starterCompanyName,
                       @Param("payment") String payment,
                       @Param("urlAddress") String urlAddress);
+
+    void updateContractInfo(@Param("starterCreditCode") String creditCode,
+                            @Param("receiverCompanyCreditCode") String receiverCompanyCreditCode,
+                            @Param("receiverCompanyAddress") String receiverCompanyAddress,
+                            @Param("receiverPhone") String receiverPhone,
+                            @Param("confirmation") String confirmation,
+                            @Param("accountName") String accountName,
+                            @Param("accountNode") String accountNode,
+                            @Param("accountNumber") String accountNumber,
+                            @Param("signState") String signState);
 }
