@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springboot.example.supplyAi.mapper.EnterpriseUserMapper">
+    <select id="queryComCreditCode" resultType="springboot.example.supplyAi.domain.EnterpriseUser" >
+        select * from enterprise_user where credit_code = #{creditCode}
+        LIMIT #{offset}, #{pageCount}
+    </select>
+
+    <select id="queryTotalCompany" resultType="java.lang.Integer">
+        select count(*) from enterprise_user where credit_code= #{creditCode};
+    </select>
+</mapper>

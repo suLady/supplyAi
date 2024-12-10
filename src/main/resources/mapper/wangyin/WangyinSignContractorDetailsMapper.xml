@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springboot.example.supplyAi.mapper.wangyin.WangyinSignContractorDetailsMapper">
+    <insert id="submitSignInfo" >
+        insert into wangyin_sign_details(customerId,
+                                         starter_credit_code,
+                                         starter_company_name,
+                                         starter_company_address,
+                                         starter_type,
+                                         starter_phone,
+                                         receiver_type,
+                                         receiver_company_name,
+                                         receiver_company_credit_code,
+                                         receiver_company_address,
+                                         account_number,
+                                         account_name,
+                                         account_node,
+                                         payment,
+                                         confirmation,
+                                         contract_id,
+                                         sign_state,
+                                         agreement)
+        values (#{customerId},
+                #{starterCreditCode},
+                #{starterCompanyName},
+                #{starterCompanyAddress},
+                #{starterType},
+                #{starterPhone},
+                #{receiverType},
+                #{receiverCompanyName},
+                #{receiverCompanyCreditCode},
+                #{receiverCompanyAddress},
+                #{accountNumber},
+                #{accountName},
+                #{accountNode},
+                #{payment},
+                #{confirmation},
+                #{contractId},
+                #{signState},
+                #{agreement})
+    </insert>
+    <insert id="addSignature">
+        insert into signature(starter_company_name,
+                              receiver_company_name,
+                              payment,
+                              url_address)
+                values(#{starterCompanyName},
+                       #{receiverCompanyName},
+                       #{payment},
+                       #{urlAddress})
+    </insert>
+    <select id="queryContractInfo" resultType="springboot.example.supplyAi.domain.WangyinSignDetails">
+        select * from wangyin_sign_details where starter_credit_code=#{starterCreditCode} and receiver_company_credit_code = #{receiverCompanyCreditCode}
+    </select>
+</mapper>

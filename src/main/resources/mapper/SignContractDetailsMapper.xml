@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springboot.example.supplyAi.mapper.SignContractDetailsMapper">
+    <insert id="addStarterSignContract" >
+        insert into sign_contractor_details(starter_credit_code,
+                                            starter_company_name,
+                                            starter_company_address,
+                                            receiver_company_name,
+                                            receiver_company_address,
+                                            receiver_company_credit_code,
+                                            starter_type,
+                                            receiver_type,
+                                            account_number,
+                                            account_node,
+                                            account_name,
+                                            payment,
+                                            confirmation,
+                                            contract_id,
+                                            sign_state)
+        values (#{starterCreditCode},
+                #{starterCompanyName},
+                #{starterCompanyAddress},
+                #{receiverCompanyName},
+                #{receiverCompanyAddress},
+                #{receiverCompanyCreditCode},
+                #{starterType},
+                #{receiverType},
+                #{accountNumber},
+                #{accountNode},
+                #{accountName},
+                #{payment},
+                #{confirmation},
+                #{contractId},
+                #{signState}
+               )
+    </insert>
+    <update id="updateConfirmSignContract">
+        update sign_contractor_details set
+                                           starter_type = #{starterType},
+                                           receiver_company_address=#{receiverCompanyAddress},
+                                           account_number=#{accountNumber},
+                                           account_node=#{accountNode},
+                                           account_name=#{accountName},
+                                           confirmation=#{confirmation},
+                                           sign_state=#{signState}
+                                       where
+                                           starter_credit_code =#{starterCreditCode}
+                                       and
+                                           receiver_company_credit_code=#{receiverCompanyCreditCode}
+    </update>
+
+    <select id="queryContractInfo" resultType="springboot.example.supplyAi.domain.SignContractorDetails">
+        select  *from sign_contractor_details where starter_credit_code= #{starterCreditCode} and receiver_company_credit_code=#{receiverCompanyCreditCode}
+    </select>
+    <select id="selectToBeProcessedInfo" resultType="springboot.example.supplyAi.domain.SignContractorDetails">
+        select *from sign_contractor_details where receiver_company_credit_code=#{receiverCompanyCreditCode} limit #{offset},#{pageCount}
+    </select>
+    <select id="queryTotalToBeProcessedInfo" resultType="java.lang.Integer">
+        select count(*) from sign_contractor_details where receiver_company_credit_code = #{receiverCompanyCreditCode}
+    </select>
+
+</mapper>
